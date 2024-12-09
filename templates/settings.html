@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+</head>
+
+<body class="dark bg-gray-900">
+    <div class="h-screen flex items-center justify-center">
+        <form class="max-w-sm mx-auto border border-gray-400 rounded p-5" style="min-width: fit-content;" method="post"
+            action="/settings" enctype="multipart/form-data">
+            <h1 class="text-xl font-semibold text-gray-900 dark:text-white mb-10">Calculate accuracy score</h1>
+            <div class="flex flex-row gap-4">
+                <div class="flex flex-col w-80">
+                    <div class="mb-5">
+                        <label for="model_select"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select model</label>
+                        <select id="model_select"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            name="model">
+                            <option value="KNeighborsClassifier">KNeighborsClassifier</option>
+                        </select>
+                    </div>
+                    <div class="mb-5">
+                        <label for="type_select"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type
+                            params</label>
+                        <select id="type_select"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            name="type">
+                            <option value="Auto">Auto</option>
+                        </select>
+                    </div>
+                    {% if not accuracy %}
+                    <div class="flex justify-end gap-2">
+                        <a href="./"
+                            class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Calculate</a>
+                        <button type="submit"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Continue</button>
+                    </div>
+                    {% endif %}
+                </div>
+                {% if accuracy %}
+                <div class="flex flex-col w-48">
+                    <div class="mb-5">
+                        <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Algorithm</span>
+                        <span
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            {{ algorithm }}
+                        </span>
+                    </div>
+                    <div class="mb-5">
+                        <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Neighbors</span>
+                        <span
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            {{ neighbors }}
+                        </span>
+                    </div>
+                </div>
+                <div class="flex flex-col w-48">
+                    <div class="mb-5">
+                        <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Weights</span>
+                        <span
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            {{ weights }}
+                        </span>
+                    </div>
+                    <div class="mb-5">
+                        <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Accuracy</span>
+                        <span
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            {{ accuracy }}
+                        </span>
+                    </div>
+                    <div class="flex justify-end">
+                        <a href=""
+                            class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Back</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+</body>
+
+</html>

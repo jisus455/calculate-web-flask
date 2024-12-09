@@ -32,7 +32,7 @@ def index():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(path.join(app.config['UPLOAD_FOLDER'], filename))
-            
+
             filename = file.filename
             route = path.abspath(f'static/temp/{filename}') 
             testsize = request.form.get('testsize')
@@ -40,8 +40,25 @@ def index():
             logicModel = ActionModel(route, testsize)
             logicModel.fitModel()
             accuracy_score = logicModel.getScore()
-
             return render_template("index.html", score=accuracy_score)
 
+
+@app.route('/settings', methods=['GET', 'POST'])
+def settings():
+    if request.method == "GET":
+        return render_template("settings.html")
+    
+    if request.method == 'POST':
+        model_select = request.form.get('model')
+        type_param = request.form.get('type')
+        
+        if type_param == 'Auto':
+            route = path.abspath('static/temp/weather_forecast_data.csv')
+            testsize = 0.25 
+            logicModel = ActionModel(route, testsize)
+            logicModel.fitModel()
+            best_comb, best_score = logicModel.bestParam()
+            return render_template("settings.html", algorithm=best_comb['algorithm'], 
+            neighbors=best_comb['n_neighbors'], weights=best_comb['weights'], accuracy=best_score)
 
 app.run(host="localhost", port=5000, debug=True)

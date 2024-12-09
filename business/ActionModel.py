@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 
 class ActionModel:
-    model = None
+    model, grid_model = None, None
     X_train, x_test = None, None
     y_train, y_test = None, None
 
@@ -38,3 +38,14 @@ class ActionModel:
         y_predict = self.model.predict(self.x_test)
         score = accuracy_score(self.y_test, y_predict)
         return score
+    
+    def bestParam(self):
+        # Probamos distintos parametros con el modelo
+        parameters = {
+            'n_neighbors': np.arange(1,22, dtype='int8'),
+            'weights': ['uniform', 'distance'], 
+            'algorithm': ['ball_tree', 'kd_tree', 'brute']
+        }
+        self.grid_model = GridSearchCV(self.model, param_grid=parameters, scoring='accuracy', cv=5)
+        self.grid_model.fit(self.X_train, self.y_train)
+        return self.grid_model.best_params_, self.grid_model.best_score_
